@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chat with Selina Magar</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#ece5dd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.chat-container{
+    width:350px;
+    height:500px;
+    background:white;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.header{
+    background:#075e54;
+    color:white;
+    padding:12px;
+    font-weight:bold;
+}
+
+.chat-box{
+    flex:1;
+    padding:10px;
+    overflow-y:auto;
+}
+
+.message{
+    margin:5px 0;
+    padding:8px 12px;
+    border-radius:8px;
+    max-width:70%;
+}
+
+.user{
+    background:#dcf8c6;
+    margin-left:auto;
+}
+
+.ai{
+    background:#f1f0f0;
+}
+
+.input-area{
+    display:flex;
+    border-top:1px solid #ccc;
+}
+
+input{
+    flex:1;
+    padding:10px;
+    border:none;
+    outline:none;
+}
+
+button{
+    padding:10px 15px;
+    border:none;
+    background:#075e54;
+    color:white;
+    cursor:pointer;
+}
+.status{
+    font-size:12px;
+    color:gray;
+    margin-top:2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+    <div class="header">Selina Magar</div>
+
+    <div class="chat-box" id="chatBox"></div>
+
+    <div class="input-area">
+        <input type="text" id="messageInput" placeholder="Type a message">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+
+let blocked = false;
+
+function sendMessage(){
+
+    if(blocked) return;
+
+    let input = document.getElementById("messageInput");
+    let msg = input.value.trim();
+
+    if(msg === "") return;
+
+    let chat = document.getElementById("chatBox");
+
+    let userMsg = document.createElement("div");
+    userMsg.className = "message user";
+    userMsg.innerText = msg;
+
+    chat.appendChild(userMsg);
+
+    let status = document.createElement("div");
+    status.className="status";
+    status.innerText="Seen";
+    chat.appendChild(status);
+
+    input.value="";
+
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(function(){
+
+        let aiMsg = document.createElement("div");
+        aiMsg.className="message ai";
+        aiMsg.innerText="Selina Magar blocked you.";
+
+        chat.appendChild(aiMsg);
+        chat.scrollTop = chat.scrollHeight;
+
+        blocked = true;
+
+    },1500);
+}
+
+</script>
+
+</body>
+</html>
